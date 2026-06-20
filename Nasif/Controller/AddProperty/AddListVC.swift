@@ -11,6 +11,10 @@ class AddListVC: UIViewController {
     
     // MARK: - IBOutlet
     
+    @IBOutlet weak var lblProjectTitle: UILabel!
+    @IBOutlet weak var vwProjectName: UIView!
+    @IBOutlet weak var txtProjectName: UITextField!
+    
     @IBOutlet weak var vwAvailability: UIView!
     @IBOutlet weak var cvSelectType: UICollectionView?
     @IBOutlet weak var lblTitle: UILabel?

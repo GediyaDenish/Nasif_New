@@ -34,6 +34,9 @@ class AddPinView: UIView {
     @IBOutlet weak var lbl4: UILabel!
     @IBOutlet weak var lbl5: UILabel!
     
+    @IBOutlet weak var vwPropertyType: UIView!
+    @IBOutlet weak var lblNewPropertyType: UILabel!
+    
     //MARK: -  View Life cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -63,6 +66,9 @@ extension AddPinView {
         vw4.backgroundColor = UIColor.themeD9D9D9
         vw5.backgroundColor = UIColor.themeD9D9D9
         
+        vwPropertyType.layer.cornerRadius = 10
+        vwPropertyType.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner]
+        
         vwStatus.layer.cornerRadius = 10
         vwStatus.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner]
         
@@ -81,14 +87,18 @@ extension AddPinView {
     
     func configureWith(property: Property, priceFormatter: ((Int) -> String)? = nil) {
         if let type = property.type?.localized {
-            if property.availableFor == "Sale" {
-                lblPropertyType.text = "\(type) للبيع"
-            } else {
-                lblPropertyType.text = "\(type) للإيجار"
-            }
+            self.lblNewPropertyType?.text = type
+//            if property.availableFor == "Sale" {
+//                self.lblPropertyType?.text = "\(type) للبيع"
+//            } else {
+//                self.lblPropertyType?.text = "\(type) للإيجار"
+//            }
         } else {
-            lblPropertyType.text = property.type?.localized ?? "N/A"
+            //self.lblPropertyType?.text = property.type?.localized ?? "N/A"
+            self.lblNewPropertyType?.text = property.type?.localized ?? "N/A"
         }
+        
+        self.lblPropertyType?.text = "Project Name"
         
         lblArea.text = "\(property.city ?? "") - \(property.neighbourhood ?? "")"
         
@@ -97,13 +107,13 @@ extension AddPinView {
         lblSquare.text = "\(property.area)"
         lblStatus.text = property.status?.localized
         
-        if property.status == "Available" {
-            self.vwStatus.backgroundColor = UIColor.themeBackgroundGreenColor
-        } else if property.status == "Reserved" {
-            self.vwStatus.backgroundColor = UIColor.themePurpor
-        } else {
-            self.vwStatus.backgroundColor = UIColor.themeBackgroundRedColor
-        }
+//        if property.status == "Available" {
+//            self.vwStatus.backgroundColor = UIColor.themeBackgroundGreenColor
+//        } else if property.status == "Reserved" {
+//            self.vwStatus.backgroundColor = UIColor.themePurpor
+//        } else {
+//            self.vwStatus.backgroundColor = UIColor.themeBackgroundRedColor
+//        }
         
         let placeholder = UIImage(named: "icn_new_placeholder")
         imgPropertyThumbnail.sd_cancelCurrentImageLoad()

