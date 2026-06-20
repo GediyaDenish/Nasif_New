@@ -1,0 +1,137 @@
+<div class="tw-h-full tw-w-full tw-p-4">
+    <h2 class="tw-text-primary-950">Welcome back,</h2>
+    <div class="tw-grid tw-grid-cols-5 tw-gap-4 tw-my-4">
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-p-4 tw-flex tw-flex-col tw-items-center tw-mt-2">
+                <div class="tw-text-7xl sm:tw-text-8xl tw-font-bold tw-tracking-tight tw-leading-none tw-text-blue-500">{{totalUser}}</div>
+                <div class="tw-text-lg tw-font-medium tw-text-blue-600 dark:tw-text-blue-500">Total Users</div>
+                <div class="tw-text-md tw-font-medium tw-truncate tw-mt-4">Till Date</div>
+            </div>
+        </div>        
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-p-4 tw-flex tw-flex-col tw-items-center tw-mt-2">
+                <div class="tw-text-7xl sm:tw-text-8xl tw-font-bold tw-tracking-tight tw-leading-none tw-text-primary-500">{{totalNewListing}}</div>
+                <div class="tw-text-lg tw-font-medium tw-text-primary-600 dark:tw-text-primary-500">New Listing</div>
+                <div class="tw-text-md tw-font-medium tw-truncate tw-mt-4">In last 7 days</div>
+            </div>
+        </div>
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-p-4 tw-flex tw-flex-col tw-items-center tw-mt-2">
+                <div class="tw-text-7xl sm:tw-text-8xl tw-font-bold tw-tracking-tight tw-leading-none tw-text-amber-500">{{totalNewDeal}}</div>
+                <div class="tw-text-lg tw-font-medium tw-text-amber-600 dark:tw-text-amber-500">New Deals</div>
+                <div class="tw-text-md tw-font-medium tw-truncate tw-mt-4">In last 7 days</div>
+            </div>
+        </div>
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-p-4 tw-flex tw-flex-col tw-items-center tw-mt-2">
+                <div class="tw-text-7xl sm:tw-text-8xl tw-font-bold tw-tracking-tight tw-leading-none tw-text-red-500">{{totalNewUser}}</div>
+                <div class="tw-text-lg tw-font-medium tw-text-red-600 dark:tw-text-red-500">New Users</div>
+                <div class="tw-text-md tw-font-medium tw-truncate tw-mt-4">In last 7 days</div>
+            </div>
+        </div>
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-p-4 tw-flex tw-flex-col tw-items-center tw-mt-2">
+                <div class="tw-text-7xl sm:tw-text-8xl tw-font-bold tw-tracking-tight tw-leading-none tw-text-green-500">{{totalMessages}}</div>
+                <div class="tw-text-lg tw-font-medium tw-text-green-600 dark:tw-text-green-500">Total Messages</div>
+                <div class="tw-text-md tw-font-medium tw-truncate tw-mt-4">In last 7 days</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tw-grid tw-grid-cols-2 tw-gap-4 tw-my-4">
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-start tw-justify-between">
+                <div class="tw-font-medium tw-text-secondary">New listing last 7 days summary</div>
+            </div>
+            <div class="tw-w-full" *ngIf=chartPropertySummary>
+                <apx-chart
+                    class="flex-auto w-full h-80"
+                    [chart]="chartPropertySummary.chart!"
+                    [colors]="chartPropertySummary.colors!"
+                    [dataLabels]="chartPropertySummary.dataLabels!"
+                    [grid]="chartPropertySummary.grid!"
+                    [labels]="chartPropertySummary.labels!"
+                    [legend]="chartPropertySummary.legend!"
+                    [plotOptions]="chartPropertySummary.plotOptions!"
+                    [series]="chartPropertySummary.series!"
+                    [states]="chartPropertySummary.states!"
+                    [stroke]="chartPropertySummary.stroke!"
+                    [tooltip]="chartPropertySummary.tooltip!"
+                    [xaxis]="chartPropertySummary.xaxis!"
+                    [yaxis]="chartPropertySummary.yaxis!">
+                </apx-chart>
+            </div>
+        </div>
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-start tw-justify-between">
+                <div class="tw-font-medium tw-text-secondary">New deals last 7 days summary</div>
+            </div>
+            <div class="tw-w-full" *ngIf=chartDealSummary>
+                <apx-chart
+                    class="flex-auto w-full h-80"
+                    [chart]="chartDealSummary.chart!"
+                    [colors]="chartDealSummary.colors!"
+                    [dataLabels]="chartDealSummary.dataLabels!"
+                    [grid]="chartDealSummary.grid!"
+                    [labels]="chartDealSummary.labels!"
+                    [legend]="chartDealSummary.legend!"
+                    [plotOptions]="chartDealSummary.plotOptions!"
+                    [series]="chartDealSummary.series!"
+                    [states]="chartDealSummary.states!"
+                    [stroke]="chartDealSummary.stroke!"
+                    [tooltip]="chartDealSummary.tooltip!"
+                    [xaxis]="chartDealSummary.xaxis!"
+                    [yaxis]="chartDealSummary.yaxis!">
+                </apx-chart>
+            </div>
+        </div>
+    </div>
+    <div class="tw-grid tw-grid-cols-2 tw-gap-4 tw-my-4">
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-start tw-justify-between">
+                <div class="tw-font-medium tw-text-secondary">User registration last 7 days summary</div>
+            </div>
+            <div class="tw-w-full" *ngIf=chartUserSummary>
+                <apx-chart
+                    class="flex-auto w-full h-80"
+                    [chart]="chartUserSummary.chart!"
+                    [colors]="chartUserSummary.colors!"
+                    [dataLabels]="chartUserSummary.dataLabels!"
+                    [grid]="chartUserSummary.grid!"
+                    [labels]="chartUserSummary.labels!"
+                    [legend]="chartUserSummary.legend!"
+                    [plotOptions]="chartUserSummary.plotOptions!"
+                    [series]="chartUserSummary.series!"
+                    [states]="chartUserSummary.states!"
+                    [stroke]="chartUserSummary.stroke!"
+                    [tooltip]="chartUserSummary.tooltip!"
+                    [xaxis]="chartUserSummary.xaxis!"
+                    [yaxis]="chartUserSummary.yaxis!">
+                </apx-chart>
+            </div>
+        </div>
+        <div class="tw-w-full tw-bg-white tw-rounded-lg tw-shadow tw-p-4" >
+            <div class="tw-flex tw-flex-col sm:tw-flex-row tw-items-start tw-justify-between">
+                <div class="tw-font-medium tw-text-secondary">New messages last 7 days summary</div>
+            </div>
+            <div class="tw-w-full" *ngIf=chartMessageSummary>
+                <apx-chart
+                    class="flex-auto w-full h-80"
+                    [chart]="chartMessageSummary.chart!"
+                    [colors]="chartMessageSummary.colors!"
+                    [dataLabels]="chartMessageSummary.dataLabels!"
+                    [grid]="chartMessageSummary.grid!"
+                    [labels]="chartMessageSummary.labels!"
+                    [legend]="chartMessageSummary.legend!"
+                    [plotOptions]="chartMessageSummary.plotOptions!"
+                    [series]="chartMessageSummary.series!"
+                    [states]="chartMessageSummary.states!"
+                    [stroke]="chartMessageSummary.stroke!"
+                    [tooltip]="chartMessageSummary.tooltip!"
+                    [xaxis]="chartMessageSummary.xaxis!"
+                    [yaxis]="chartMessageSummary.yaxis!">
+                </apx-chart>
+            </div>
+        </div>
+    </div>
+</div>

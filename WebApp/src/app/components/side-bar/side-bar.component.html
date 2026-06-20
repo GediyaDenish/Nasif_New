@@ -1,0 +1,59 @@
+<div class="tw-h-full tw-bg-white tw-justify-between">
+  <div class="tw-text-center tw-w-full tw-py-10">
+    <img src="../../../assets/brands/nasif-black.svg" class="tw-w-32 tw-mx-auto"/>
+  </div>
+  <ul class="tw-pl-8">
+    <a class="tw-p-2 tw-mb-1 tw-font-semibold tw-flex tw-items-center hover:tw-bg-primary-100 hover:tw-rounded-l-lg hover:tw-text-primary-500 hover:tw-shadow-lg " [ngClass]="{'tw-text-primary-500 tw-rounded-l-lg tw-bg-primary-100 tw-shadow-lg': dashboard.isActive}" 
+      [routerLink]="['admin/dashboard']"
+      routerLinkActive
+      #dashboard="routerLinkActive">
+        <mat-icon class="tw-mr-2">dashboard</mat-icon><span>Dashboard</span>
+    </a>
+    
+    <a class="tw-p-2 tw-mb-1 tw-font-semibold tw-flex tw-items-center hover:tw-bg-primary-100 hover:tw-rounded-l-lg hover:tw-text-primary-500 hover:tw-shadow-lg " [ngClass]="{'tw-text-primary-500 tw-rounded-l-lg tw-bg-primary-100 tw-shadow-lg': users.isActive}"
+      [routerLink]="['admin/users']"
+      routerLinkActive
+      #users="routerLinkActive"
+      >
+      <mat-icon class="tw-mr-2">group</mat-icon> <span>Users</span>
+    </a>
+
+    <!-- <div class="tw-mb-1 tw-pb-1 tw-group tw-font-semibold hover:tw-rounded-l-lg hover:tw-bg-primary-100 hover:tw-shadow-lg" [ngClass]="{'tw-rounded-l-lg tw-bg-primary-100 tw-shadow-lg': configurations.isActive}">
+      <a class="tw-p-2 tw-mb-1 tw-flex tw-items-center tw-justify-between group-hover:tw-text-primary-500" [ngClass]="{'tw-text-primary-500': configurations.isActive}"
+        [routerLink]="['admin/configurations']"
+        routerLinkActive
+        #configurations="routerLinkActive"
+        >
+          <div class="tw-flex tw-items-center">
+            <mat-icon class="tw-mr-2">settings</mat-icon> <span>Configuration</span>
+          </div>
+          <mat-icon class="group-hover:tw-rotate-180" [ngClass]="{'tw-rotate-180': configurations.isActive}">arrow_drop_down</mat-icon>
+      </a> -->
+      <!-- <ul class="tw-pl-8 group-hover:tw-block" [ngClass]="{'tw-block': configurations.isActive, 'tw-hidden':!configurations.isActive}"> -->
+        
+        <!-- <hr class="tw-w-full tw-mb-1"> -->
+        <!-- <a class="tw-mb-1 tw-py-2 tw-flex tw-items-center hover:tw-text-primary-500 hover:tw-bg-white hover:tw-rounded-l-lg hover:tw-shadow-lg" [ngClass]="{'tw-text-primary-500 tw-bg-white tw-rounded-l-lg tw-shadow-lg': faq.isActive}"
+          [routerLink]="['admin/configurations/faq']"
+          routerLinkActive
+          #faq="routerLinkActive"
+          >
+          <span class="tw-pl-2">FAQ</span>
+        </a> -->
+        <!-- <a class="tw-mb-1 tw-py-2 tw-flex tw-items-center hover:tw-text-primary-500 hover:tw-bg-white hover:tw-rounded-l-lg hover:tw-shadow-lg" [ngClass]="{'tw-text-primary-500 tw-bg-white tw-rounded-l-lg tw-shadow-lg': policy.isActive}"
+          [routerLink]="['admin/configurations/policy']"
+          routerLinkActive
+          #policy="routerLinkActive"
+          >
+          <span class="tw-pl-2">Privacy Policy</span>
+        </a>
+        <a class="tw-mb-1 tw-py-2 tw-flex tw-items-center hover:tw-text-primary-500 hover:tw-bg-white hover:tw-rounded-l-lg hover:tw-shadow-lg" [ngClass]="{'tw-text-primary-500 tw-bg-white tw-rounded-l-lg tw-shadow-lg': terms.isActive}"
+          [routerLink]="['admin/configurations/terms']"
+          routerLinkActive
+          #terms="routerLinkActive"
+          >
+          <span class="tw-pl-2">Terms of Use</span>
+        </a> -->
+      <!-- </ul> -->
+    <!-- </div> -->
+  </ul>
+</div>

@@ -1,0 +1,20 @@
+/* 
+  Json.strings
+  Nasif
+
+  Created by Denish Gediya on 28/11/25.
+  
+*/
+
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "B58Y3LCUS7.com.app.Nasif",
+        "paths": [ "*" ]
+      }
+    ]
+  }
+}
+

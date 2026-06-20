@@ -1,0 +1,46 @@
+# macOS
+.DS_Store
+
+# Xcode user state
+*.xcuserstate
+
+# Xcode bookmarks
+*.xcbkplist
+# macOS
+**/.DS_Store
+
+# Xcode user files
+**/*.xcuserstate
+**/*.xcbkplist
+**/*.xcbkplist2
+**/xcuserdata/**
+
+# Environment files
+.env
+.env.*
+*.env
+
+# Firebase / Google Service Account
+*firebase-adminsdk*.json
+google-services.json
+GoogleService-Info.plist
+
+# Keys & Secrets
+*.pem
+*.p12
+*.key
+*.keystore
+
+# AWS
+.aws/
+
+# Node modules
+node_modules/
+
+# Build folders
+build/
+dist/
+
+# Xcode
+DerivedData/
+xcuserdata/

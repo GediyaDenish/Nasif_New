@@ -1,0 +1,48 @@
+export default interface IProperty {
+    id: string,
+    listingNo:number,
+    user: string,
+    location: {
+        coordinates: number[]
+    },
+    city: string,
+    neighbourhood: string,
+    availableFor: string,
+    status: string,
+    type: string,
+    price: number,
+    area: number,
+    age: number,
+    northFacing: number,
+    eastFacing: number,
+    westFacing: number,
+    southFacing: number,
+    streets: number,
+    vilaType?: string,
+    landType?: string,
+    useFor?: string[],
+    floorNumber: number,
+    totalFloors: number,
+    totalBedrooms: number,
+    totalBathrooms: number,
+    totalLivingrooms: number,
+    availableParking: number,
+    services?: string[],
+    extraFeatures?: string[],
+    coverImage: string,
+    images?: string[]
+    advertisersRole?: string,
+    planNumber?: string,
+    plotNumber?: string,
+    falLicenseNumber?: string,
+    licenseNumber?: string,
+    ownerName?: string,
+    ownerNumber?: string,
+    description?: string,
+    isDeleted: boolean,
+    sharedWith?: string[],
+    sharedHideFor?: string[],
+    chat?: string
+    toList(userId:string): Promise<IProperty>
+    toJSON(userId:string): Promise<IProperty>
+}

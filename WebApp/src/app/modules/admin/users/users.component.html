@@ -1,0 +1,61 @@
+<div class="tw-h-page tw-w-full tw-p-4">
+    <div class="tw-mb-4 tw-flex tw-justify-between tw-items-center">
+        <h2 class="tw-text-primary-950">Users</h2>
+        <div class="tw-flex tw-items-center tw-justify-between tw-border tw-rounded-lg tw-p-2 tw-border-primary-500 tw-w-1/3">
+            <mat-icon class="tw-text-primary-500">search</mat-icon>
+            <input class="tw-w-full focus:tw-outline-none tw-bg-transparent tw-text-primary-500 tw-font-semibold" placeholder="Search" type="text" [(ngModel)]="pageable.search" (keydown)="filterData($event)">
+        </div>
+    </div>
+    <mat-card class="tw-p-0 tw-h-content">
+        <div class="tw-h-table tw-overflow-auto tw-rounded-t-lg">
+            <mat-table matSort [dataSource]="list" (matSortChange)="onSort($event)">                
+                <ng-container matColumnDef="name">
+                    <mat-header-cell class="tw-text-primary-950" *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <div class="tw-flex tw-items-center">
+                            <img class="tw-w-10 tw-h-10 tw-mr-4 tw-rounded-full tw-border" *ngIf="!element.avatar" src="../../../assets/images/avatar.png"/>
+                            <img class="tw-w-10 tw-h-10 tw-mr-4 tw-rounded-full tw-border" *ngIf="element.avatar" [src]="element.avatar"/>
+                            {{ element.displayName }}
+                        </div>
+                    </mat-cell>
+                </ng-container> 
+                <ng-container matColumnDef="mobile">
+                    <mat-header-cell class="tw-text-primary-950" *matHeaderCellDef mat-sort-header>Mobile</mat-header-cell>
+                    <mat-cell *matCellDef="let element">{{ element.mobile }}</mat-cell>
+                </ng-container> 
+
+                <!-- <ng-container matColumnDef="admin">
+                    <mat-header-cell class="tw-text-primary-500 tw-justify-end" *matHeaderCellDef mat-sort-header>Admin</mat-header-cell>
+                    <mat-cell class="tw-justify-end" *matCellDef="let element">
+                        <mat-slide-toggle
+                            [color]="'primary'"
+                            [disabled]="element.id == loggedUser?.id"
+                            [checked]="isAdmin(element.role)" (change)="userAdmin($event,element)">
+                        </mat-slide-toggle>
+                    </mat-cell>
+                </ng-container>  -->
+
+                <ng-container matColumnDef="blocked">
+                    <mat-header-cell class="tw-text-primary-950 tw-justify-end" *matHeaderCellDef mat-sort-header>Blocked</mat-header-cell>
+                    <mat-cell class="tw-justify-end" *matCellDef="let element">
+                        <mat-slide-toggle
+                            [color]="'primary'"
+                            [disabled]="element.id == loggedUser?.id"
+                            [checked]="element.isBlocked" (change)="userBlock($event,element)">
+                        </mat-slide-toggle>
+                    </mat-cell>
+                </ng-container> 
+    
+                <mat-footer-row [hidden]="page?.totalElements != 0" *matFooterRowDef="['noRecord']"></mat-footer-row>
+                <ng-container matColumnDef="noRecord">
+                    <mat-footer-cell *matFooterCellDef class="tw-text-center">No record found</mat-footer-cell>
+                </ng-container>
+    
+                <mat-header-row class="tw-rounded-t-lg tw-bg-white" *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+                <mat-row class="hover:tw-bg-primary-100" *matRowDef="let row; columns: displayedColumns;" matRipple></mat-row>
+            </mat-table>
+        </div>
+        <mat-paginator class="tw-rounded-b-lg" [length]="page?.totalElements" [pageSize]="page?.size" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+        </mat-paginator>        
+    </mat-card>    
+</div>

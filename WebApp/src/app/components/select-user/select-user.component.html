@@ -1,0 +1,22 @@
+<mat-form-field class="tw-w-full">
+    <mat-label *ngIf="label && !_value" class="tw-font-semibold">{{label}}</mat-label>
+    <mat-select [(ngModel)]="value" [multiple]="false" [disabled]="disabled">
+        <mat-option>
+            <ngx-mat-select-search
+                [formControl]="filter"
+                [clearSearchInput]="false"
+                placeholderLabel="Search"
+                noEntriesFoundLabel="No record found">
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-option  [value]="null">
+            <span class="text-truncate"></span>
+        </mat-option>
+        <mat-option *ngFor="let el of filteredElements | async" [value]="el">
+            <span class="text-truncate">{{el.firstName}} {{el.lastName}}</span>
+        </mat-option>
+        <mat-select-trigger>
+            <span class="mb-24">{{_value?.firstName}} {{_value?.lastName}}</span>
+        </mat-select-trigger>
+    </mat-select>
+</mat-form-field>

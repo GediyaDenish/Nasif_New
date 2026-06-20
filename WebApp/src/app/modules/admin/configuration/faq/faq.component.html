@@ -1,0 +1,53 @@
+<div class="tw-h-page tw-w-full tw-p-4">
+    <div class="tw-mb-4 tw-flex tw-justify-between tw-items-center">
+        <h2 class="tw-text-primary-950">FAQ</h2>
+        <div class="tw-flex tw-items-center">
+            <div class="tw-flex tw-items-center tw-justify-between tw-border tw-rounded-lg tw-p-2 tw-border-primary-500 ">
+                <mat-icon class="tw-text-primary-500">search</mat-icon>
+                <input class="tw-w-full focus:tw-outline-none tw-bg-transparent tw-text-primary-500 tw-font-semibold" placeholder="Search" type="text" [(ngModel)]="pageable.search" (keydown)="filterData($event)">
+            </div>
+            <button class="tw-flex tw-items-center tw-text-primary-950 tw-bg-white tw-p-2 tw-rounded-lg tw-ml-2 tw-shadow-sm hover:tw-text-white hover:tw-bg-primary-950" (click)="onCreate()"><mat-icon class="tw-font-semibold">add</mat-icon></button>
+        </div>
+    </div>
+    <div class="tw-p-0 tw-h-content tw-w-full" [ngClass]="{'tw-hidden':!page || page?.content?.length == 0}">
+        <div class="tw-h-table tw-overflow-y-auto tw-rounded-t-lg">
+            <mat-card *ngFor="let element of page?.content" class="tw-mb-2 tw-group">
+                <div class="tw-p-4">
+                    <div class="tw-flex tw-items-center tw-justify-between">
+                        <p class="tw-font-bold tw-pb-2 tw-text-primary-950">{{element.que}}</p>
+                        <div>
+                            <button mat-icon-button color="primary" class="tw-invisible hover:tw-text-primary-600 group-hover:tw-visible"><mat-icon (click)="onEdit(element)">edit</mat-icon></button>
+                            <button mat-icon-button class="tw-invisible tw-text-gray-400 hover:tw-text-gray-600 group-hover:tw-visible" (click)="onDelete(element)"><mat-icon >delete</mat-icon></button>
+                        </div>
+                    </div>
+                    <p class="tw-pb-2">{{element.ans}}</p>
+                </div>
+            </mat-card>
+        </div>
+        <mat-paginator class="tw-rounded-lg" [length]="page?.totalElements" [pageSize]="page?.size" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+        </mat-paginator>        
+    </div>    
+
+    <div class="tw-w-full tw-h-content tw-flex tw-items-center tw-justify-center" [ngClass]="{'tw-hidden':!page || !page?.content || (page && page.content && page.content.length > 0)}">
+        <div class="tw-text-center">
+            <img src="../../../../assets/images/no-record.svg" class="tw-h-32 tw-m-auto">
+            <h1 class="tw-pt-4">No record found</h1>
+            <span class="tw-text-gray-300">Please try to search another or apply <br>different filters</span>
+        </div> 
+    </div>
+</div>
+
+<ng-template #createDialog class="tw-w-full">
+    <h1 class="tw-text-primary" mat-dialog-title *ngIf="selectedFaq">Edit FAQ</h1>
+    <h1 class="tw-text-primary" mat-dialog-title *ngIf="!selectedFaq">Create FAQ</h1>
+    <div mat-dialog-content>
+        <div class="tw-w-full">
+            <input placeholder="Question" class="tw-w-full tw-p-3 tw-mb-4 tw-border tw-rounded-lg focus:tw-border-primary-500 focus:tw-outline-none" [(ngModel)]="selectedQue" />
+            <textarea placeholder="Answer" class="tw-w-full tw-h-60 tw-p-3 tw-border tw-rounded-lg focus:tw-border-primary-500 focus:tw-outline-none" [(ngModel)]="selectedAns"></textarea>
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Close</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true">Save</button>
+    </div>
+</ng-template>

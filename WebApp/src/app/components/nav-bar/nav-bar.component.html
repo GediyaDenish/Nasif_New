@@ -1,0 +1,29 @@
+<mat-toolbar class=" tw-shadow-lg tw-bg-white tw-shadow-sm">
+  <div class="tw-w-full tw-h-full tw-justify-between">
+    <div class="tw-flex tw-items-center tw-justify-between tw-mt-2.5 tw-px-4">
+      <div class="tw-flex tw-items-center">
+        <button mat-icon-button class="tw-mr-4 tw-text-primary-500">
+          <mat-icon (click)="sideBar()">menu</mat-icon>
+        </button>
+        <!-- <button mat-icon-button class="tw-mx-4 tw-text-primary-500">
+          <mat-icon>notifications</mat-icon>
+        </button> -->
+      </div>
+      <div class="tw-flex tw-items-center">
+        <span class="tw-mx-4 tw-text-primary-950">{{loggedUser?.displayName}}</span>
+        <img *ngIf="loggedUser?.avatar" class="tw-h-10 tw-w-10 tw-rounded-full tw-border hover:tw-shadow-lg" [src]="loggedUser?.avatar" [matMenuTriggerFor]="menu">
+        <img *ngIf="!loggedUser?.avatar" class="tw-h-10 te-w-10 tw-rounded-full tw-border hover:tw-shadow-lg" src="../../../assets/images/avatar.png" [matMenuTriggerFor]="menu">
+        <mat-menu #menu="matMenu" class="tw-mt-2 tw-px-2 tw-font-semibold">
+          <!-- <div class="tw-flex tw-items-center tw-p-2 tw-rounded-lg hover:tw-text-primary-500 hover:tw-bg-primary-100 hover:tw-shadow-lg" (click)="editProfile()">
+            <mat-icon>person</mat-icon> <span class="tw-ml-4">Profile</span>
+          </div> -->
+          <div class="tw-flex tw-items-center tw-p-2 tw-rounded-lg hover:tw-text-primary-500 hover:tw-bg-primary-100 hover:tw-shadow-lg" (click)="signOut()">
+            <mat-icon>logout</mat-icon> <span class="tw-ml-4">Sign out</span>
+          </div>
+        </mat-menu>        
+      </div>
+    </div>
+    <mat-progress-bar class="tw-mt-1.5" *ngIf="isLoading" color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+
+</mat-toolbar>

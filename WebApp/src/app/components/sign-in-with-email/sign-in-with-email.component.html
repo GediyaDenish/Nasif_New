@@ -1,0 +1,20 @@
+<div class="tw-mt-10 tw-px-12 sm:tw-px-24 md:tw-px-48 lg:tw-px-12 lg:tw-mt-16 xl:tw-px-24 xl:tw-max-w-2xl">
+    <h2 class="tw-text-center tw-text-4xl tw-font-display tw-font-semibold lg:tw-text-left xl:tw-text-3xl xl:tw-text-bold">Let's get started</h2>
+    <div class="tw-mt-6">
+        <div class="tw-px-4 tw-py-1 tw-rounded-lg tw-border tw-border-gray-100 tw-tracking-wide focus:tw-shadow-outline">
+            <input class="tw-w-full tw-text-lg tw-py-2 focus:tw-outline-none" maxlength="10" type="number" placeholder="Enter phone number" (keyup)="onKey($event, 'mobile')">
+        </div>
+        
+        <div class="tw-mt-4 tw-text-right">
+            <div class="tw-px-4 tw-py-1 tw-rounded-lg tw-border tw-border-gray-100 tw-tracking-wide focus:tw-shadow-outline">
+                <input class="tw-w-full tw-text-lg tw-py-2 focus:tw-outline-none" maxlength="4" type="number"  placeholder="Enter OTP" (keyup)="onKey($event, 'otp')">
+            </div>
+        </div>
+        <div class="tw-mt-10">
+            <button class="tw-bg-primary-950 tw-text-white tw-p-4 tw-w-full tw-rounded-lg tw-tracking-wide tw-font-semibold tw-font-display focus:tw-outline-none focus:tw-shadow-outline hover:tw-bg-primary-600 tw-shadow-lg disabled:tw-bg-gray-200" [disabled]="!isValid" (click)="signIn()">
+                Sign In
+            </button>
+        </div>
+    </div>
+        
+</div>

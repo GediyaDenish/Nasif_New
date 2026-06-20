@@ -1,0 +1,11 @@
+<div class="tw-h-page tw-w-full tw-p-4">
+    <div class="tw-mb-4 tw-flex tw-justify-between tw-items-center">
+        <h2 class="tw-text-primary-950">Terms of use</h2>
+        <button mat-raised-button color="primary" (click)="updateTerms()">Save</button>
+    </div>
+    <mat-card class="tw-p-0 tw-h-content">
+        <div class="tw-h-content tw-overflow-auto tw-p-4">
+            <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" class="focus:tw-outline-none"></angular-editor>
+        </div>  
+    </mat-card>    
+</div>

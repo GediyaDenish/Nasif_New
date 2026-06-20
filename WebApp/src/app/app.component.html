@@ -1,0 +1,10 @@
+<router-outlet *ngIf="!isLogedIn"></router-outlet>
+<mat-sidenav-container class="tw-h-full" *ngIf="isLogedIn">
+  <mat-sidenav mode="side" [opened]="isSideNavOpen">
+    <app-side-bar></app-side-bar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-nav-bar></app-nav-bar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

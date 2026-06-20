@@ -1,0 +1,23 @@
+<div class="tw-mt-2 tw-text-center">
+    <img *ngIf="loggedUser?.avatar" class="tw-h-24 tw-rounded-full tw-border tw-m-auto hover:tw-shadow-lg" [src]="loggedUser?.avatar" >
+    <img *ngIf="!loggedUser?.avatar" class="tw-h-24 tw-rounded-full tw-border tw-m-auto hover:tw-shadow-lg" src="../../../assets/images/avatar.png">
+</div>
+<!-- <div class="tw-px-4 tw-py-1 tw-rounded-lg tw-border tw-mt-4 tw-border-gray-100 tw-tracking-wide focus:tw-shadow-outline">
+  <input class="tw-w-full tw-text-lg tw-py-2 focus:tw-outline-none"  placeholder="Enter first name" [(ngModel)]="firstName" (keyup)="onKey($event)">
+</div>
+<div class="tw-px-4 tw-py-1 tw-rounded-lg tw-border tw-mt-4 tw-border-gray-100 tw-tracking-wide focus:tw-shadow-outline">
+    <input class="tw-w-full tw-text-lg tw-py-2 focus:tw-outline-none" placeholder="Enter last name" [(ngModel)]="lastName" (keyup)="onKey($event)">
+</div> -->
+<div class="tw-px-4 tw-py-1 tw-rounded-lg tw-border tw-mt-4 tw-border-gray-100 tw-tracking-wide focus:tw-shadow-outline">
+    <input class="tw-w-full tw-text-lg tw-py-2 focus:tw-outline-none" placeholder="Enter display name" [(ngModel)]="displayName" (keyup)="onKey($event)">
+</div>  
+<!-- <div class="tw-px-4 tw-py-1 tw-rounded-lg tw-border tw-mt-4 tw-border-gray-100 tw-tracking-wide focus:tw-shadow-outline" (keyup)="onKey($event)">
+    <input class="tw-w-full tw-text-lg tw-py-2 focus:tw-outline-none" placeholder="email" [(ngModel)]="email">
+</div> -->
+<div class="tw-px-4 tw-py-1 tw-rounded-lg tw-border tw-mt-4 tw-border-gray-100 tw-tracking-wide focus:tw-shadow-outline">
+    <input class="tw-w-full tw-text-lg tw-py-2 focus:tw-outline-none" type="number" placeholder="mobile" [(ngModel)]="mobile" (keyup)="onKey($event)">
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+  <button mat-raised-button color="primary" [disabled]="!isValid" (click)="confirm()">Confirm</button>
+</div>
