@@ -67,6 +67,11 @@ class ListingDetailVC: UIViewController {
     @IBOutlet weak var lblNoMoreData: UILabel!
     @IBOutlet weak var vwPage: UIView!
     
+    
+    @IBOutlet var vwBG: [UIView]!
+    
+    
+    
     // MARK: - Variables
     var objProperty: Property?
     var strProperty: String = ""
@@ -273,6 +278,9 @@ fileprivate extension ListingDetailVC {
         
         btnConfirmDelete?.setRound(withBorderColor: .clear, andCornerRadious: 20.0, borderWidth: 0)
         btnCancel?.setRound(withBorderColor: .clear, andCornerRadious: 20.0, borderWidth: 0)
+        self.vwBG?.forEach({
+            $0.setRound(withBorderColor: UIColor.themeBorderColor, andCornerRadious: 8.0, borderWidth: 1.0)
+        })
     }
     
     private func configureCollectionViews() {
