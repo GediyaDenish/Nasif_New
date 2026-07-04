@@ -15,6 +15,8 @@ class ListingDetailVC: UIViewController {
     
     @IBOutlet weak var vwPropertyDeleteView: UIView!
     
+    @IBOutlet weak var pageNewControl: UIPageControl!
+    @IBOutlet weak var cvNewProperty: UICollectionView!
     @IBOutlet weak var icnShow: UIImageView!
     @IBOutlet weak var vwBottomMenu1: UIView!
     @IBOutlet weak var lblHide: UILabel!
@@ -293,6 +295,12 @@ fileprivate extension ListingDetailVC {
         cvImages?.showsHorizontalScrollIndicator = false
         cvImages?.register(UINib(nibName: "ImagesCVCell", bundle: nil), forCellWithReuseIdentifier: "ImagesCVCell")
         
+        cvNewProperty?.delegate = self
+        cvNewProperty?.dataSource = self
+        cvNewProperty?.isPagingEnabled = true
+        cvNewProperty?.showsHorizontalScrollIndicator = false
+        cvNewProperty?.register(UINib(nibName: "PropertyInformationCVCell", bundle: nil), forCellWithReuseIdentifier: "PropertyInformationCVCell")
+        
         // Features collection view
         self.cvFeatures?.delegate = self
         self.cvFeatures?.dataSource = self
@@ -324,6 +332,15 @@ fileprivate extension ListingDetailVC {
             layout.itemSize = CGSize(width: cvImages.frame.width, height: cvImages.frame.height)
             layout.sectionInset = .zero
             cvImages.contentInset = .zero
+        }
+        
+        if let layout = cvNewProperty.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 0
+            layout.itemSize = CGSize(width: cvNewProperty.frame.width, height: cvNewProperty.frame.height)
+            layout.sectionInset = .zero
+            cvNewProperty.contentInset = .zero
         }
     }
     
@@ -399,6 +416,8 @@ extension ListingDetailVC: UICollectionViewDataSource, UICollectionViewDelegateF
             return objProperty?.images?.count ?? 0
         } else if collectionView == cvFeatures {
             return objProperty?.extraFeatures?.count ?? 0
+        }else if collectionView == cvNewProperty {
+            return 10
         } else {
             return self.objProperty?.services?.count ?? 0
         }
@@ -429,6 +448,11 @@ extension ListingDetailVC: UICollectionViewDataSource, UICollectionViewDelegateF
                 cell.configure(with: feature.localized)
             }
             return cell
+        } else if collectionView == cvNewProperty {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PropertyInformationCVCell", for: indexPath) as? PropertyInformationCVCell else {
+                return UICollectionViewCell()
+            }
+            return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListTypeCVCell", for: indexPath) as? ListTypeCVCell else {
                 return UICollectionViewCell()
@@ -448,14 +472,26 @@ extension ListingDetailVC: UICollectionViewDataSource, UICollectionViewDelegateF
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageWidth = scrollView.frame.size.width
+
+        let pageWidth = scrollView.frame.width
         let page = Int((scrollView.contentOffset.x + pageWidth / 2) / pageWidth)
-        pagerImages.currentPage = page
+
+        if scrollView == cvImages {
+
+            pagerImages.currentPage = page
+
+        } else if scrollView == cvNewProperty {
+
+            pageNewControl.currentPage = page
+
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == cvImages {
             return CGSize(width: self.cvImages.frame.width, height: self.cvImages.frame.height)
+        } else if collectionView == cvNewProperty {
+            return CGSize(width: self.cvNewProperty.frame.width, height: self.cvNewProperty.frame.height)
         } else {
             let spacing: CGFloat = 10
             let totalSpacing = spacing * 2
@@ -759,6 +795,9 @@ fileprivate extension ListingDetailVC {
     private func updateUserDetailsUI(property: Property) {
         pagerImages.numberOfPages = property.images?.count ?? 0
         pagerImages.currentPage = 0
+        
+        pageNewControl.numberOfPages = 10
+        pageNewControl.currentPage = 0
         
         lblListingCreaterName.text = property.userDetail?.displayName
         lblListingCreatorNumber.text = Utility.formattedPhoneNumber(property.userDetail?.mobile)
