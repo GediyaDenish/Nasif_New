@@ -72,7 +72,13 @@ class ListingDetailVC: UIViewController {
     
     @IBOutlet var vwBG: [UIView]!
     
+    @IBOutlet weak var lblcomissionPrice: UILabel!
+    @IBOutlet weak var txtProjectDetails: UILabel!
+    @IBOutlet weak var txtVisits: UILabel!
+    @IBOutlet weak var txtReservations: UILabel!
+    @IBOutlet weak var txtCommissions: UILabel!
     
+    @IBOutlet weak var vwMedia: UIView!
     
     // MARK: - Variables
     var objProperty: Property?
@@ -299,7 +305,7 @@ fileprivate extension ListingDetailVC {
         cvNewProperty?.dataSource = self
         cvNewProperty?.isPagingEnabled = true
         cvNewProperty?.showsHorizontalScrollIndicator = false
-        cvNewProperty?.register(UINib(nibName: "PropertyInformationCVCell", bundle: nil), forCellWithReuseIdentifier: "PropertyInformationCVCell")
+        cvNewProperty?.register(UINib(nibName: "ImagesCVCell", bundle: nil), forCellWithReuseIdentifier: "ImagesCVCell")
         
         // Features collection view
         self.cvFeatures?.delegate = self
@@ -412,7 +418,9 @@ fileprivate extension ListingDetailVC {
 extension ListingDetailVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == cvImages {
+        if collectionView == cvNewProperty {
+            return objProperty?.medias?.count ?? 0
+        } else if collectionView == cvImages {
             return objProperty?.images?.count ?? 0
         } else if collectionView == cvFeatures {
             return objProperty?.extraFeatures?.count ?? 0
@@ -424,7 +432,16 @@ extension ListingDetailVC: UICollectionViewDataSource, UICollectionViewDelegateF
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == cvImages {
+        if collectionView == cvNewProperty {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagesCVCell", for: indexPath) as? ImagesCVCell else {
+                return UICollectionViewCell()
+            }
+            if let url = URL(string: objProperty?.medias?[indexPath.item] ?? ""){
+                cell.imgImages?.sd_setImage(with: url, placeholderImage: UIImage(named: "Image"))
+                cell.imgImages?.contentMode = .scaleAspectFill
+            }
+            return cell
+        } else if collectionView == cvImages {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagesCVCell", for: indexPath) as? ImagesCVCell else {
                 return UICollectionViewCell()
             }
@@ -475,8 +492,11 @@ extension ListingDetailVC: UICollectionViewDataSource, UICollectionViewDelegateF
 
         let pageWidth = scrollView.frame.width
         let page = Int((scrollView.contentOffset.x + pageWidth / 2) / pageWidth)
+        if scrollView == cvNewProperty {
 
-        if scrollView == cvImages {
+            pageNewControl.currentPage = page
+
+        } else if scrollView == cvImages {
 
             pagerImages.currentPage = page
 
@@ -488,7 +508,9 @@ extension ListingDetailVC: UICollectionViewDataSource, UICollectionViewDelegateF
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == cvImages {
+        if collectionView == cvNewProperty {
+            return CGSize(width: self.cvNewProperty.frame.width, height: self.cvNewProperty.frame.height)
+        } else if collectionView == cvImages {
             return CGSize(width: self.cvImages.frame.width, height: self.cvImages.frame.height)
         } else if collectionView == cvNewProperty {
             return CGSize(width: self.cvNewProperty.frame.width, height: self.cvNewProperty.frame.height)
@@ -796,7 +818,7 @@ fileprivate extension ListingDetailVC {
         pagerImages.numberOfPages = property.images?.count ?? 0
         pagerImages.currentPage = 0
         
-        pageNewControl.numberOfPages = 10
+        pageNewControl.numberOfPages = property.medias?.count ?? 0
         pageNewControl.currentPage = 0
         
         lblListingCreaterName.text = property.userDetail?.displayName
@@ -841,18 +863,23 @@ fileprivate extension ListingDetailVC {
     }
     
     private func updatePropertyInfoUI(property: Property) {
-        if let type = property.type?.localized {
-            if property.availableFor == "Sale" {
-                self.lblTypeTitle?.text = "\(type) للبيع"
-            } else {
-                self.lblTypeTitle?.text = "\(type) للإيجار"
-            }
-        } else {
-            self.lblTypeTitle?.text = property.type?.localized ?? "N/A"
-        }
-        
+//        if let type = property.type?.localized {
+//            if property.availableFor == "Sale" {
+//                self.lblTypeTitle?.text = "\(type) للبيع"
+//            } else {
+//                self.lblTypeTitle?.text = "\(type) للإيجار"
+//            }
+//        } else {
+//            self.lblTypeTitle?.text = property.type?.localized ?? "N/A"
+//        }
+        self.lblTypeTitle?.text = property.name?.localized ?? "N/A"
         lblCity.text = "\(property.city ?? "") - \(property.neighbourhood ?? "")"
         lblPrice.text = formatPriceNew("\(property.price)")
+        txtProjectDetails.text = property.description
+        txtVisits.text = property.visits
+        txtCommissions.text = property.comission
+        txtReservations.text = property.reservation
+        lblcomissionPrice.text = "\(property.comissionPrice ?? 0)"
         
         let hasDescription = !(property.description?.isEmpty ?? true)
         vwMainDesc.isHidden = !hasDescription
@@ -921,10 +948,12 @@ fileprivate extension ListingDetailVC {
     
     private func updateVisibility(property: Property) {
         let hasImages = !(property.images?.isEmpty ?? true)
+        let hasNewProperty = !(property.medias?.isEmpty ?? true)
         let hasExtraFeatures = !(property.extraFeatures?.isEmpty ?? true)
         let hasServices = !(property.services?.isEmpty ?? true)
         
         cvImages.isHidden = !hasImages
+        vwMedia.isHidden = !hasNewProperty
         vwFeature.isHidden = !hasExtraFeatures
         vwInfrastructure.isHidden = !hasServices
         lblNoMoreData.isHidden = hasImages
@@ -939,6 +968,7 @@ fileprivate extension ListingDetailVC {
     
     private func reloadAllData() {
         cvImages.reloadData()
+        cvNewProperty.reloadData()
         
         DispatchQueue.main.async {
             self.cvFeatures?.reloadData()

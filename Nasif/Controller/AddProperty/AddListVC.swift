@@ -113,6 +113,12 @@ class AddListVC: UIViewController {
     @IBOutlet weak var txtDescription: UITextView?
     @IBOutlet weak var lblDesc: UILabel!
     
+    @IBOutlet weak var txtProjectDetails: UITextView!
+    @IBOutlet weak var txtVisits: UITextView!
+    @IBOutlet weak var txtReservations: UITextView!
+    @IBOutlet weak var txtCommissions: UITextView!
+    
+    
     // MARK: - Variables
     var isFromEdit: Bool = false
     var objProperty: Property?
@@ -122,15 +128,22 @@ class AddListVC: UIViewController {
     var arrSelectType: [String] = ["Rent", "Sale"]
     var selectSelectType: Int?
     
+//    let arrSecondAvailabilityList: [String] = [
+//        "Land",
+//        "Villa",
+//        "Apartment",
+//        "Floor",
+//        "Building Complex",
+//        "Chalet",
+//        "Farm",
+//        "Other"
+//    ]
+    
     let arrSecondAvailabilityList: [String] = [
-        "Land",
-        "Villa",
-        "Apartment",
         "Floor",
-        "Building Complex",
-        "Chalet",
-        "Farm",
-        "Other"
+        "Townhouse",
+        "Apartment",
+        "Villa"
     ]
     var secondSelectedIndex: Int?
     
@@ -329,25 +342,42 @@ extension AddListVC {
             //            if let index = self.selectedIndices, self.arrIntendedList.indices.contains(index) {
             //                dictParam[PARAMS.LAND_TYPE] = self.arrIntendedList[index]
             //            }
+//            dictParam[PARAMS.TYPE] = "Project"
+            let project = txtProjectName?.text ?? ""
+            dictParam[PARAMS.NAME] = project
+            
+            let projectDetails = txtProjectDetails?.text ?? ""
+            dictParam[PARAMS.DESCRIPTION] = projectDetails
+            
+            let visits = txtVisits?.text ?? ""
+            dictParam[PARAMS.VISITS] = visits
+            
+            let reservations = txtReservations?.text ?? ""
+            dictParam[PARAMS.RESERVATION] = reservations
+            
+            let commissions = txtCommissions?.text ?? ""
+            dictParam[PARAMS.COMISSION] = commissions
             
             let cleanPrice = txtPrice?.text?.replacingOccurrences(of: ",", with: "") ?? ""
             dictParam[PARAMS.PRICE] = cleanPrice
-            let cleanSqure = txtTotalSquare?.text?.replacingOccurrences(of: ",", with: "") ?? ""
+            dictParam[PARAMS.COMISSIONPRICE] = cleanPrice
+            
+            /*let cleanSqure = txtTotalSquare?.text?.replacingOccurrences(of: ",", with: "") ?? ""
             dictParam[PARAMS.AREA] = cleanSqure
             dictParam[PARAMS.AGE]          = Int(self.txtEstateAge?.text ?? "") ?? 0
             dictParam[PARAMS.NORTH_FACING] = Int(self.txtNorth?.text ?? "") ?? 0
             dictParam[PARAMS.EAST_FACING]  = Int(self.txtEast?.text ?? "") ?? 0
             dictParam[PARAMS.WEST_FACING]  = Int(self.txtWest?.text ?? "") ?? 0
-            dictParam[PARAMS.SOUTH_FACING] = Int(self.txtSouth?.text ?? "") ?? 0
+            dictParam[PARAMS.SOUTH_FACING] = Int(self.txtSouth?.text ?? "") ?? 0*/
             
             // MARK: - Int Values (always add, default 0)
-            dictParam[PARAMS.FLOORS_NUMBER]     = self.floorNumber > 0 ? self.floorNumber : 0
+            /*dictParam[PARAMS.FLOORS_NUMBER]     = self.floorNumber > 0 ? self.floorNumber : 0
             dictParam[PARAMS.TOTAL_FLOORS]      = self.AvailableFloors > 0 ? self.AvailableFloors : 0
             dictParam[PARAMS.TOTAL_BEDROOM]     = self.BedroomNumber > 0 ? self.BedroomNumber : 0
             dictParam[PARAMS.TOTAL_BATHROOM]    = self.BathroomNumber > 0 ? self.BathroomNumber : 0
             dictParam[PARAMS.TOTAL_LIVINGROOM]  = self.livingRoom > 0 ? self.livingRoom : 0
             dictParam[PARAMS.AVAILABLE_PARKING] = self.availableParking > 0 ? self.availableParking : 0
-            Utility.addIfValid(&dictParam, key: PARAMS.DESCRIPTION, value: txtDescription?.text)
+            Utility.addIfValid(&dictParam, key: PARAMS.DESCRIPTION, value: txtDescription?.text)*/
             
             // MARK: - Arrays (add only if not empty)
             if !self.arrSelectService.isEmpty {
@@ -443,6 +473,11 @@ extension AddListVC {
             }
             self.manageViews(indexPath: secondSelectedIndex ?? 0)
             self.txtPrice?.text = formatPriceNew("\(data?.price ?? 0)")
+            self.txtProjectName?.text = data?.name
+            self.txtProjectDetails?.text = data?.description
+            self.txtVisits?.text = data?.visits
+            self.txtReservations?.text = data?.reservation
+            self.txtCommissions?.text = data?.comission
             self.txtTotalSquare?.text = formatPriceNew("\(data?.area ?? 0)")
             if data?.age != nil {
                 self.switchAge?.isOn = false
@@ -634,13 +669,18 @@ extension AddListVC {
     }
     
     func checkValidation() -> Bool {
-        if let selectedType = self.selectSelectType {
-            if selectedType < 0 || !self.arrSelectType.indices.contains(selectedType) {
-                Utility.showNewToast(message: "Please select Available Rent or Sale".localized)
-                return false
-            }
-        } else {
-            Utility.showNewToast(message: "Please select Available Rent or Sale".localized)
+//        if let selectedType = self.selectSelectType {
+//            if selectedType < 0 || !self.arrSelectType.indices.contains(selectedType) {
+//                Utility.showNewToast(message: "Please select Available Rent or Sale".localized)
+//                return false
+//            }
+//        } else {
+//            Utility.showNewToast(message: "Please select Available Rent or Sale".localized)
+//            return false
+//        }
+        
+        if txtProjectName?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+            Utility.showNewToast(message: "Please enter project name".localized)
             return false
         }
         
@@ -659,10 +699,30 @@ extension AddListVC {
             return false
         }
         
-        if txtTotalSquare?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
-            Utility.showNewToast(message: "Please enter Total Square Metres".localized)
+        if txtProjectDetails?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+            Utility.showNewToast(message: "Please enter project details".localized)
             return false
         }
+                
+        if txtVisits?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+            Utility.showNewToast(message: "Please enter visits".localized)
+            return false
+        }
+        
+        if txtReservations?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+            Utility.showNewToast(message: "Please enter reservations".localized)
+            return false
+        }
+        
+        if txtCommissions?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+            Utility.showNewToast(message: "Please enter commissions".localized)
+            return false
+        }
+        
+//        if txtTotalSquare?.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true {
+//            Utility.showNewToast(message: "Please enter Total Square Metres".localized)
+//            return false
+//        }
         
         return true
     }

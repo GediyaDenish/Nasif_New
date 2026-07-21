@@ -155,7 +155,7 @@ private extension OwnerContactVC {
         prepareParams()
         Utility.showLoading()
         
-        WebServices.Post(url: WebService.PROPERTY, params: dictParam, type: Property.self) { [weak self] response in
+        WebServices.Post(url: WebService.PROJECT, params: dictParam, type: Property.self) { [weak self] response in
             Utility.hideLoading()
             guard let self = self else { return }
             guard response != nil else { return }
@@ -169,7 +169,7 @@ private extension OwnerContactVC {
         prepareParams()
         Utility.showLoading()
         
-        let url = "\(WebService.PROPERTY)\(objProperty?.id ?? "")"
+        let url = "\(WebService.PROJECT)\(objProperty?.id ?? "")"
         WebServices.Put(url: url, params: dictParam, type: Property.self) { [weak self] response in
             Utility.hideLoading()
             guard let self = self else { return }

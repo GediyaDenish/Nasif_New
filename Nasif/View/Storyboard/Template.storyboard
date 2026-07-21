@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CS7-ln-erP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CS7-ln-erP">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24743"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1353,17 +1353,29 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ivQ-gq-AzF">
                                                         <rect key="frame" x="20" y="5" width="353" height="40"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kit-q4-c3o">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KL4-Ag-bi9">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kit-q4-c3o">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="Kit-q4-c3o" secondAttribute="height" multiplier="1:1" id="bXf-fF-yfW"/>
+                                                                        </constraints>
+                                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                        <state key="normal" image="icn_plus"/>
+                                                                        <connections>
+                                                                            <action selector="btnOnClickAdd:" destination="l1o-f5-77E" eventType="touchUpInside" id="g60-cL-vkb"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="Kit-q4-c3o" secondAttribute="height" multiplier="1:1" id="bXf-fF-yfW"/>
+                                                                    <constraint firstItem="Kit-q4-c3o" firstAttribute="leading" secondItem="KL4-Ag-bi9" secondAttribute="leading" id="LDk-dS-w2n"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Kit-q4-c3o" secondAttribute="trailing" id="YDe-Y8-04x"/>
+                                                                    <constraint firstItem="Kit-q4-c3o" firstAttribute="top" secondItem="KL4-Ag-bi9" secondAttribute="top" id="jnj-9z-xcs"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="Kit-q4-c3o" secondAttribute="bottom" id="v35-aW-VSq"/>
                                                                 </constraints>
-                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                <state key="normal" image="icn_plus"/>
-                                                                <connections>
-                                                                    <action selector="btnOnClickAdd:" destination="l1o-f5-77E" eventType="touchUpInside" id="g60-cL-vkb"/>
-                                                                </connections>
-                                                            </button>
+                                                            </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDB-N8-KBP">
                                                                 <rect key="frame" x="60" y="0.0" width="233" height="40"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
@@ -1431,7 +1443,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1UZ-sL-DCy">
-                                                <rect key="frame" x="0.0" y="106" width="393" height="40"/>
+                                                <rect key="frame" x="0.0" y="58" width="393" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOD-DL-UZY">
                                                         <rect key="frame" x="12" y="0.0" width="369" height="40"/>
@@ -1467,10 +1479,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFQ-EO-gFC">
-                                                <rect key="frame" x="0.0" y="154" width="393" height="463"/>
+                                                <rect key="frame" x="0.0" y="106" width="393" height="511"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWO-ey-0Kc" customClass="GMSMapView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="463"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="511"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     </view>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Z6z-3l-xZM">
@@ -1481,7 +1493,7 @@
                                                         </constraints>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Mn-CI-wjG">
-                                                        <rect key="frame" x="333" y="393" width="45" height="45"/>
+                                                        <rect key="frame" x="333" y="441" width="45" height="45"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="au6-eE-Mrh">
                                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -1530,7 +1542,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inL-67-Fko">
-                                                        <rect key="frame" x="15" y="338" width="45" height="100"/>
+                                                        <rect key="frame" x="15" y="386" width="45" height="100"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4OJ-yK-Fc0">
                                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="100"/>
@@ -1703,6 +1715,11 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="z0p-8V-dv5"/>
+                                            </mask>
+                                        </variation>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1726,6 +1743,7 @@
                     <tabBarItem key="tabBarItem" title="Listings" image="icn_listing" selectedImage="icn_listing_selected" id="36V-fu-BVk"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="btnAdd" destination="Kit-q4-c3o" id="Odi-L5-Msq"/>
                         <outlet property="cvSelectType" destination="UVT-AR-H0e" id="Pc5-GW-5HP"/>
                         <outlet property="cvType" destination="GKv-6k-lEG" id="Y3Z-Sv-d4S"/>
                         <outlet property="lblNoData" destination="ITV-FN-Oal" id="Fco-OO-lJ9"/>

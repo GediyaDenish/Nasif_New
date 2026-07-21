@@ -1,38 +1,20 @@
 //
-//  AddMediaVC.swift
+//  UnitInformationVC.swift
 //  Nasif
 //
-//  Created by Denish Gediya on 08/07/25.
+//  Created by Denish Gediya on 21/07/26.
 //
 
 import UIKit
 
-class AddMediaVC: UIViewController {
+class UnitInformationVC: UIViewController {
     
-    // MARK: - Outlets
-    @IBOutlet weak var lblTitle: UILabel?
+    @IBOutlet weak var lblTitle: UILabel!
+    
+    @IBOutlet weak var tblImage: ContentSizedTableView!
+    
     @IBOutlet weak var btnAdd: UIButton!
-    @IBOutlet var lblSubTitle: [UILabel]?
-    @IBOutlet weak var vwAddImage: UIView?
-    @IBOutlet weak var lblAddThumbnail: UILabel?
-    @IBOutlet weak var lblAddSubThumbnail: UILabel?
-    @IBOutlet weak var tblImage: ContentSizedTableView?
-    @IBOutlet weak var tblHeight: NSLayoutConstraint?
-    @IBOutlet weak var btnNext: UIButton?
-    @IBOutlet weak var imgMain: UIImageView?
-    @IBOutlet weak var vwThumbMain: UIView?
-    @IBOutlet weak var vwImageMain: UIView?
-    
-    @IBOutlet weak var lblThumbnailImageTitle: UILabel!
-    @IBOutlet weak var lblOtherPicture: UILabel!
-    
-    
-    // MARK: - Constants
-    private enum Constants {
-        static let rowHeight: CGFloat = 65
-        static let selectedRowHeight: CGFloat = 80
-    }
-    
+    @IBOutlet weak var btnNext: UIButton!
     // MARK: - Properties
     var dictParam: [String: Any] = [:]
     var isFromEdit = false
@@ -51,16 +33,13 @@ class AddMediaVC: UIViewController {
         setupTableView()
         configureDataIfEditing()
     }
-}
-
-// MARK: - Actions
-extension AddMediaVC {
     
-    @IBAction private func btnOnClickBack(_ sender: UIButton) {
+    
+    @IBAction func btnOnClickBack(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction private func btnOnClickAdd(_ sender: UIButton) {
+    @IBAction func btnOnClickAdd(_ sender: Any) {
         imagePicker.pickImage(self, "", type: .multiple, allowVideo: false, multiHandler: { images in
             for img in images {
                 self.handleNewImage(img)
@@ -68,19 +47,40 @@ extension AddMediaVC {
         })
     }
     
-    @IBAction private func btnOnClickAddImage(_ sender: UIButton) {
-        imagePicker.pickImage(self, "", type: .single, allowVideo: false) { image, url in
-            self.handleThumbnailImage(image)
-        }
+    @IBAction func btnOnClickNext(_ sender: UIButton) {
+        navigateToOwnerContact()
     }
     
-    @IBAction private func btnOnClickNext(_ sender: UIButton) {
-        navigateToOwnerContact()
+}
+
+// MARK: - Handlers
+private extension UnitInformationVC {
+    
+    func handleNewImage(_ img: UIImage) {
+        arrSelectedImages.append(img)
+        arrSelected.append(convertImageToBase64String(img: img))
+        reloadTable()
+    }
+    
+    func navigateToOwnerContact() {
+        let storyboard = UIStoryboard(name: "AddList", bundle: nil)
+        guard let ownerContactVC = storyboard.instantiateViewController(withIdentifier: "OwnerContactVC") as? OwnerContactVC else { return }
+        
+        Utility.addIfValid(&dictParam, key: PARAMS.MEDIAS, value: arrSelected)
+        ownerContactVC.dictParam = dictParam
+        ownerContactVC.isFromEdit = isFromEdit
+        ownerContactVC.objProperty = objProperty
+        navigationController?.pushViewController(ownerContactVC, animated: true)
+    }
+    
+    func reloadTable() {
+        let totalCount = arrExtraImages.count + arrSelectedImages.count
+        tblImage?.reloadData()
     }
 }
 
 // MARK: - Setup
-private extension AddMediaVC {
+private extension UnitInformationVC {
     
     func setupUI() {
         lblTitle?.font = FontHelper.font(size: 20, type: .Regular)
@@ -90,29 +90,12 @@ private extension AddMediaVC {
             $0?.setupNewButton(borderColor: .clear, andCornerRadious: 8)
         }
         
-        vwThumbMain?.setRound(withBorderColor: .themeBorderColor,
-                              andCornerRadious: 8,
-                              borderWidth: 1)
-        
-        lblAddThumbnail?.font = FontHelper.font(size: 14, type: .Regular)
-        lblAddSubThumbnail?.applyStyle(size: 12, color: .themeSelect)
-        
-        lblSubTitle?.forEach {
-            $0.textColor = .black
-            $0.font = FontHelper.font(size: 16, type: .Regular)
-        }
-        
-        // imagePicker.viewController = self
         
         setupLocalized()
     }
     
     func setupLocalized() {
-        self.lblTitle?.text = "Media".localized
-        self.lblThumbnailImageTitle?.text = "Thumbnail image".localized
-        self.lblAddThumbnail?.text = "ADD thumbnail image".localized
-        self.lblAddSubThumbnail?.text = "chose only one image here".localized
-        self.lblOtherPicture?.text = "other pictures".localized
+        self.lblTitle?.text = "Unit information".localized
         self.btnNext?.setTitle("Next".localized, for: .normal)
         self.btnAdd?.setTitle("Add".localized, for: .normal)
     }
@@ -128,19 +111,7 @@ private extension AddMediaVC {
     func configureDataIfEditing() {
         guard isFromEdit, let property = objProperty else { return }
         
-        arrExtraImages = property.images ?? []
-        
-        if let cover = property.coverImage, !cover.isEmpty {
-            vwAddImage?.isHidden = true
-            vwImageMain?.isHidden = false
-            if let url = URL(string: cover){
-                self.imgMain?.sd_setImage(with: url, placeholderImage: UIImage(named: "icn_new_placeholder"))
-            }
-            Utility.addIfValid(&dictParam, key: PARAMS.COVER_IMAGE, value: cover)
-        } else {
-            vwAddImage?.isHidden = false
-            vwImageMain?.isHidden = true
-        }
+        arrExtraImages = property.medias ?? []
         
         DispatchQueue.main.async {
             self.reloadTable()
@@ -149,43 +120,8 @@ private extension AddMediaVC {
     }
 }
 
-// MARK: - Handlers
-private extension AddMediaVC {
-    
-    func handleNewImage(_ img: UIImage) {
-        arrSelectedImages.append(img)
-        arrSelected.append(convertImageToBase64String(img: img))
-        reloadTable()
-    }
-    
-    func handleThumbnailImage(_ img: UIImage) {
-        vwAddImage?.isHidden = true
-        vwImageMain?.isHidden = false
-        imgMain?.image = img
-        thumbImage = img
-        Utility.addIfValid(&dictParam, key: PARAMS.COVER_IMAGE, value: convertImageToBase64String(img: img))
-    }
-    
-    func navigateToOwnerContact() {
-        let storyboard = UIStoryboard(name: "AddList", bundle: nil)
-        guard let unitInformationVC = storyboard.instantiateViewController(withIdentifier: "UnitInformationVC") as? UnitInformationVC else { return }
-        
-        Utility.addIfValid(&dictParam, key: PARAMS.IMAGES, value: arrSelected)
-        unitInformationVC.dictParam = dictParam
-        unitInformationVC.isFromEdit = isFromEdit
-        unitInformationVC.objProperty = objProperty
-        navigationController?.pushViewController(unitInformationVC, animated: true)
-    }
-    
-    func reloadTable() {
-        let totalCount = arrExtraImages.count + arrSelectedImages.count
-        tblHeight?.constant = CGFloat(totalCount) * Constants.rowHeight
-        tblImage?.reloadData()
-    }
-}
-
 // MARK: - UITableView
-extension AddMediaVC: UITableViewDelegate, UITableViewDataSource {
+extension UnitInformationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrExtraImages.count + arrSelectedImages.count
@@ -240,7 +176,7 @@ extension AddMediaVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - Web Services
-extension AddMediaVC {
+extension UnitInformationVC {
     
     func wsDeleteImage(imageURL: String) {
         Utility.showLoading()
@@ -250,7 +186,7 @@ extension AddMediaVC {
             return
         }
         
-        let url = "\(WebService.PROPERTY)\(propertyId)/image/?url=\(imageURL)"
+        let url = "\(WebService.PROPERTY)\(propertyId)/media/?url=\(imageURL)"
         
         WebServices.Delete(url: url, type: Property.self) { [weak self] response in
             Utility.hideLoading()

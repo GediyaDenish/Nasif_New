@@ -25,10 +25,11 @@ class ListingsVC: UIViewController {
     @IBOutlet private weak var tblMapListing: UITableView?
     @IBOutlet private weak var mapTableHeight: NSLayoutConstraint?
     @IBOutlet weak var vwSelect: UIView!
+    @IBOutlet weak var btnAdd: UIButton!
     @IBOutlet weak var cvSelectType: UICollectionView!
     
     // MARK: - Properties
-    private let arrOptions = ["All", "Land", "Villa", "Apartment","Floor", "Building Complex", "Chalet", "Farm","Other"]
+    private let arrOptions = ["All","Floor","Townhouse","Apartment","Villa"];
     private var selectedIndex: Int = 0
     private let locationManager = CLLocationManager()
     private var mapTypeIndex = 0
@@ -749,6 +750,11 @@ private extension ListingsVC {
             if response.displayName != "" {
                 UserDefaultsHelper.shared.displayName = response.displayName
             }
+            let roles = response.role
+                .split(separator: ",")
+                .map { $0.trimmingCharacters(in: .whitespaces) }
+
+            self.btnAdd.isHidden = !roles.contains("admin")
         }
     }
 }

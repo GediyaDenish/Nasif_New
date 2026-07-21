@@ -34,10 +34,14 @@ struct Property: Codable {
     let availableFor: String?
     let status: String?
     let type: String?
+    let comission: String?
+    let reservation: String?
+    let visits: String?
     let price: Int
     let area: Int
     let age: Int?
     let northFacing: Int?
+    let comissionPrice: Int?
     let eastFacing: Int?
     let westFacing: Int?
     let southFacing: Int?
@@ -54,6 +58,7 @@ struct Property: Codable {
     let extraFeatures: [String]?
     let coverImage: String?
     let images: [String]?
+    let medias: [String]?
     let id: String?
     let advertisersRole: String?
     let planNumber: String?
@@ -62,7 +67,9 @@ struct Property: Codable {
     let licenseNumber: String?
     let ownerNumber: String?
     let ownerName: String?
+    let name: String?
     let description: String?
+    let isProject: Bool?
     let userDetail: UserDetail?
 }
 
