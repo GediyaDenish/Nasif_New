@@ -581,6 +581,7 @@ extension AddListVC {
     func setupLocalized() {
         //  self.lblTitle?.text = "New listing".localized
         self.lblDesc?.text = "Description:".localized
+        self.lblProjectTitle?.text = "Project Name".localized
         self.lblAvailabilityList?.text = "Availability of the listing".localized
         self.lblRealType?.text = "Real estate type".localized
         self.lblPriceTitle?.text = "Price".localized
